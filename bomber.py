@@ -73,3 +73,31 @@ class Email_Bomber:
             print(bcolors.RED + '\n+[+[+[ You have selected BOMB mode: {self.mode} and {self.amount} emails. ]+]+]+')
         except Exception as e:
             print(f'ERROR: {e}')
+
+    def email(self):
+        try:
+            print(bcolors.RED + '\n+[+[+[ Setting up email! ]+]+]+')
+            self.server = str(input(bcolors.GREEN + 'Enter email server | or select premade options - 1:Gmail 2:Yahoo 3:Outlook <: '))
+            premade = ['1', '2', '3']
+            default_port = True
+            if self.server not in premade:
+                default_port = False
+                self.port = int(input(bcolors.GREEN + 'Enter port number <: '))
+            
+            if default_port == True:
+                self.port = int(587)
+
+            if self.server == '1':
+                self.server = 'smtp.gmail.com'
+            elif self.server == '2':
+                self.server = 'smtp.mail.yahoo.com'
+            elif self.server == '3':
+                self.server = 'smtp.mail.outlook.com'
+            
+            self.fromAddr = str(input(bcolors.GREEN + 'Enter from address <: '))
+            self.fromPwd = str(input(bcolors.GREEN + 'Enter from address <: '))
+
+
+
+        except Exception as e:
+            print(f'ERROR: {e}')
