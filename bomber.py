@@ -55,6 +55,7 @@ class Email_Bomber:
             if int(self.mode) > int(4) or int(self.mode) < int(1):
                 print('ERROR: Invalid option. Terminating program.')
                 sys.exit(1)
+                
         except Exception as e:
             print(f'ERROR: {e}')
 
@@ -71,6 +72,7 @@ class Email_Bomber:
             else:
                 self.amount = int(input(bcolors.GREEN + 'Choose a CUSTOM amount <: '))
             print(bcolors.RED + '\n+[+[+[ You have selected BOMB mode: {self.mode} and {self.amount} emails. ]+]+]+')
+
         except Exception as e:
             print(f'ERROR: {e}')
 
@@ -95,9 +97,17 @@ class Email_Bomber:
                 self.server = 'smtp.mail.outlook.com'
             
             self.fromAddr = str(input(bcolors.GREEN + 'Enter from address <: '))
-            self.fromPwd = str(input(bcolors.GREEN + 'Enter from address <: '))
+            self.fromPwd = str(input(bcolors.GREEN + 'Enter from password <: '))
+            self.subject = str(input(bcolors.GREEN + 'Enter subject <: '))
+            self.message = str(input(bcolors.GREEN + 'Enter message <: '))
 
-
-
+            self.msg = '''From: %s\nTo: %s\nSubject %s\n%s\n''' % (self.fromAddr, self.target, self.subject, self.message)
+            
+            self.s = smtplib.SMTP(self.server, self.port)
+            self.s.ehlo()
+            self.s.starttls()
+            self.s.ehlo()
+            self.login(self.fromAddr, self.fromPwd)
+            
         except Exception as e:
             print(f'ERROR: {e}')
